@@ -48,7 +48,8 @@ export const copyTemplateFilesAndFolders = async (
 
   for (const entry of filesAndFolders) {
     const currentSource = path.join(source, entry);
-    const currentDestination = path.join(destination, entry);
+    const destEntry = entry === ".xgitignore" ? ".gitignore" : entry;
+    const currentDestination = path.join(destination, destEntry);
 
     const stat = await fs.lstat(currentSource);
 
@@ -109,15 +110,12 @@ export const init = async (projectName) => {
       cwd: destination,
       stdio: "inherit",
     });
-    await fs.mkdir(
-      path.join(destination, "packages"),
-      { recursive: true }
-    );
+    await fs.mkdir(path.join(destination, "packages"), { recursive: true });
 
     console.log("📑  Files copied...");
     console.log(
       chalk.green(
-`
+        `
 cd ${projectName}
 git submodule add -b main https://github.com/Myriad-Dreamin/typ.git typ
 git submodule add -b main https://github.com/Myriad-Dreamin/tylant.git packages/tylant
