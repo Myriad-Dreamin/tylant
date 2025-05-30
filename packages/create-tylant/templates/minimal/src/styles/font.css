@@ -1,0 +1,6 @@
+/* See https://fontsource.org/fonts/inter/install */
+
+/* https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap */
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/inter/wght-italic.css";
+@import "@fontsource-variable/inter/opsz.css";

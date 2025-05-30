@@ -1,0 +1,41 @@
+.posts li > a.heading {
+  display: flex;
+}
+.date {
+  font-style: italic;
+}
+.posts .heading h2 {
+  font-size: 1.25em;
+  margin: 0;
+  margin-right: 0.5em;
+  line-height: 1.6;
+  color: var(--main-color);
+  text-decoration: none;
+  transition: color 0.1s;
+}
+.posts .heading {
+  color: var(--accent);
+}
+.posts .heading:hover,
+.posts .heading:hover h2 {
+  color: var(--accent-dark);
+}
+.posts h2,
+.posts .date {
+  line-height: 32px;
+}
+ul.tags {
+  list-style: none;
+  padding: 0;
+}
+.tags li {
+  display: inline-block;
+  margin: 0;
+  margin-right: 1em;
+}
+.tags a {
+  text-decoration: none;
+}
+.tags a:hover {
+  text-decoration: underline;
+}

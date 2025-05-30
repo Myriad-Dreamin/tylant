@@ -1,0 +1,14 @@
+---
+import Layout from "$layouts/BlogPost.astro";
+// @ts-ignore
+import AboutContent from "../../content/other/about.typ?html&body";
+---
+
+<Layout
+  id={false}
+  title="About me"
+  description="Things about Myriad-Dreamin"
+  date={new Date("April 25 2025")}
+>
+  <AboutContent />
+</Layout>

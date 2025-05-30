@@ -1,0 +1,21 @@
+{
+    "name": "@myriaddreamin/create-tylant",
+    "description": "Create astro blog",
+    "version": "0.0.1",
+    "type": "module",
+    "main": "./index.js",
+    "exports": {
+        ".": "./index.js"
+    },
+    "files": [
+        "index.js",
+        "templates/*"
+    ],
+    "bin": {
+        "create-mypackage-name": "./index.js"
+    },
+    "dependencies": {
+        "chalk": "^5.4.1",
+        "inquirer": "^12.6.3"
+    }
+}

@@ -1,0 +1,35 @@
+---
+import BaseHead from "$components/BaseHead.astro";
+import Footer from "$components/Footer.astro";
+import Header from "$components/Header.astro";
+
+import { kFriendLinks } from "$consts";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Friend Link" description="Friend Link of Myriad Dreamin" />
+    <style></style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1 style="text-align: center;">Friend Links</h1>
+      <section>
+        <ul>
+          {
+            kFriendLinks.map((link) => (
+              <li>
+                <a href={link.url} target="_blank">
+                  {link.name}
+                </a>
+                <p>{link.desc}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

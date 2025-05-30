@@ -1,0 +1,15 @@
+{
+  "folders": [{ "path": ".." }],
+  "settings": {
+    "tinymist.preview.invertColors": "auto",
+    "tinymist.fontPaths": ["${workspaceFolder}/assets/fonts"],
+    "[javascript]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  }
+}
