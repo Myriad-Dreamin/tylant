@@ -1,7 +1,7 @@
 {
   "name": "@myriaddreamin/tylant-like-reaction",
   "description": "A simple like-reaction component for Astro blog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "exports": {
     ".": "./index.ts"
