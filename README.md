@@ -19,7 +19,7 @@ Typst-specific features:
 ## Creating a Blog from Template
 
 ```bash
-npm create @myriaddreamin/tylant@latest
+pnpm create @myriaddreamin/tylant@latest
 ```
 
 ## Commands
