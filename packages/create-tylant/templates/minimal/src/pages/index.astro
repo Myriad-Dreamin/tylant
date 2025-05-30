@@ -1,10 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import { RecentComment } from "@myriaddreamin/tylant-comment";
-import { ArchiveList } from "@myriaddreamin/tylant-pdf-archive";
 import { TagList } from "@myriaddreamin/tylant";
-import { renderComment } from "@myriaddreamin/tylant";
 
 import BaseHead from "$components/BaseHead.astro";
 import Header from "$components/Header.astro";
@@ -15,18 +12,14 @@ import {
   kSiteTitle,
   kSiteIndexTitle,
   kSiteDescription,
-  kCommentList,
   kUrlBase,
   kBaiduVeriCode,
-  kEnableComment,
-  kEnableArchive,
 } from "$consts";
 // @ts-ignore
 import AboutContent from "../../content/other/about.typ?html&body";
 
 import "$styles/IndexPostList.css";
 
-const pdfArchives = await getCollection("archive");
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
@@ -91,24 +84,6 @@ const recent5Posts = posts.slice(0, 5);
           }
         </ul>
       </section>
-      {
-        kEnableComment && (
-          <RecentComment
-            kCommentList={kCommentList}
-            renderComment={renderComment}
-          >
-            <fragment slot="articleRef">
-              {(id: string) => (
-                <a class="heading" href={`${kUrlBase}/article/${id}`}>
-                  {posts.find((post) => post.id === id)?.data.title || ""}
-                </a>
-              )}
-            </fragment>
-          </RecentComment>
-        )
-      }
-
-      {kEnableArchive && <ArchiveList pdfArchives={pdfArchives} />}
     </main>
     <Footer />
   </body>

@@ -121,6 +121,7 @@ export const init = async (projectName) => {
 cd ${projectName}
 git submodule add -b main https://github.com/Myriad-Dreamin/typ.git typ
 git submodule add -b main https://github.com/Myriad-Dreamin/tylant.git packages/tylant
+git submodule update --init --recursive
 pnpm install
 pnpm run dev`
       )

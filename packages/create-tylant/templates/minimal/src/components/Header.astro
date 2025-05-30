@@ -1,10 +1,7 @@
 ---
-import { getCollection } from "astro:content";
-
 import { kUrlBase, kSiteLogo } from "$consts";
 
 import { ThemeToggle } from "@myriaddreamin/tylant-theme-toggle";
-import { ArchiveButton } from "@myriaddreamin/tylant-pdf-archive";
 
 import HeaderLink from "./HeaderLink.astro";
 
@@ -13,7 +10,6 @@ interface Props {
 }
 
 const { articleId } = Astro.props;
-const pdfArchives = await getCollection("archive");
 ---
 
 <header>
@@ -28,11 +24,6 @@ const pdfArchives = await getCollection("archive");
     <div class="social-links">
       <span style="width: 2em;" aria-hidden="true">&nbsp;</span>
       <ThemeToggle />
-      {
-        articleId && (
-          <ArchiveButton articleId={articleId} pdfArchives={pdfArchives} />
-        )
-      }
       <a
         href="https://github.com/Myriad-Dreamin/blog"
         class="icon ls-icon"
