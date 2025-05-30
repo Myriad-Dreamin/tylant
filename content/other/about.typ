@@ -85,7 +85,7 @@
         html.elem(
           "use",
           attrs: (
-            "xlink:href": "/favicon.svg#thumbnail-bg" + str(i),
+            "xlink:href": "/tylant/favicon.svg#thumbnail-bg" + str(i),
             style: "fill: var(--thumbnail-bg)",
           ),
         )
@@ -94,7 +94,7 @@
         html.elem(
           "use",
           attrs: (
-            "xlink:href": "/favicon.svg#thumbnail-fg" + str(i),
+            "xlink:href": "/tylant/favicon.svg#thumbnail-fg" + str(i),
             style: "fill: var(--thumbnail-fg)",
           ),
         )

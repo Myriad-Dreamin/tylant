@@ -9,7 +9,7 @@
   show-outline: false,
 )
 
-= About Me
+= About me
 
 #include "/content/other/about.typ"
 

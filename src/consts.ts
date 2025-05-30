@@ -10,7 +10,7 @@ type Comment = (typeof COMMENTS)[number];
 /**
  * Whether to enable backend, required by click and comment feature.
  */
-export const kEnableBackend = true;
+export const kEnableBackend = false;
 /**
  * Whether to enable click tracking.
  */
@@ -30,7 +30,7 @@ export const kEnableSearch = true;
 /**
  * Whether to enable PDF Archive.
  */
-export const kEnableArchive = true;
+export const kEnableArchive = false;
 /**
  * Whether to enable printing
  */
