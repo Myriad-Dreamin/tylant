@@ -222,16 +222,16 @@ nav a:hover,
   cursor: pointer;
 }
 .dark .theme-icon.light {
-  display: block;
+  display: none;
 }
 .dark .theme-icon.dark {
-  display: none;
+  display: dark;
 }
 .theme-icon.light {
-  display: none;
+  display: dark;
 }
 .theme-icon.dark {
-  display: block;
+  display: none;
 }
 .dark .code-image.themed .light {
   display: none;
