@@ -12,7 +12,7 @@
 
   我是一名学生。我在空余时间开发编译器和软件。我拥有一个名为「礼羽みや」的虚构角色。
 
-  #link("https://github.com/Myriad-Dreamin")[GitHub]/#link("https://skeb.jp/@camiyoru")[Skeb]. Buy me a coffee on #link("https://www.unifans.com/camiyoru")[Unifans]/#link("https://afdian.com/a/camiyoru")[Afdian].
+  #link("https://github.com/Myriad-Dreamin")[GitHub]/#link("https://skeb.jp/@camiyoru")[Skeb]. Buy me a coffee on #link("https://app.unifans.io/c/camiyoru")[Unifans]/#link("https://afdian.com/a/camiyoru")[Afdian].
 ]
 
 #if sys-is-html-target {
