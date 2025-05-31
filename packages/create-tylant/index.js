@@ -108,7 +108,8 @@ export const init = async (projectName) => {
         `If any of the following commands fail, you can run them manually:`
       )
     );
-    console.log(mayFailCommands.map((cmd) => `\n    ${cmd}`).join(""));
+    const hintCmds = [`cd ${destination}`, ...mayFailCommands];
+    console.log(hintCmds.map((cmd) => `\n    ${cmd}`).join(""));
 
     for (const cmd of mayFailCommands) {
       console.log(chalk.blueBright(`Executing: ${cmd}`));
