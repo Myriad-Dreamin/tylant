@@ -1,7 +1,7 @@
 {
     "name": "@myriaddreamin/create-tylant",
     "description": "Create astro blog",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "type": "module",
     "main": "./index.js",
     "exports": {
