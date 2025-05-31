@@ -85,7 +85,7 @@ export const init = async (projectName) => {
 
   let okay = false;
   try {
-    console.log(chalk.blueBright(`"Copying files..."`));
+    console.log(chalk.blueBright(`Copying files...`));
     await fs.mkdir(destination);
     await copyTemplateFilesAndFolders(source, destination, projectName);
     await fs.mkdir(path.join(destination, "packages"), { recursive: true });
@@ -103,13 +103,12 @@ export const init = async (projectName) => {
       "pnpm install",
     ];
 
+    const hintCmds = [`cd ${destination}`, ...mayFailCommands];
     console.log(
       chalk.blueBright(
         `If any of the following commands fail, you can run them manually:`
-      )
+      ) + hintCmds.map((cmd) => `\n  ${cmd}`).join("")
     );
-    const hintCmds = [`cd ${destination}`, ...mayFailCommands];
-    console.log(hintCmds.map((cmd) => `\n    ${cmd}`).join(""));
 
     for (const cmd of mayFailCommands) {
       console.log(chalk.blueBright(`Executing: ${cmd}`));
@@ -121,7 +120,14 @@ export const init = async (projectName) => {
     console.log(error);
   }
 
+  console.log(
+    chalk.greenBright(
+      `\n\nYour blog is ready! You can start it by running:\n  cd ${destination}\n  pnpm run dev`
+    )
+  );
+
   if (okay) {
+    console.log(chalk.blueBright(`Executing: pnpm run dev`));
     execSync("pnpm run dev", inDestOpts);
   }
 };
