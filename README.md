@@ -129,6 +129,18 @@ Improve website:
     - [x] `@myriaddreamin/tylant-like-reaction`
     - [x] `@myriaddreamin/tylant-comment`
 
+## Development
+
+The following commands should help you get started for developing and contributing to this repository:
+
+```bash
+git clone https://github.com/Myriad-Dreamin/tylant
+cd tylant
+git submodule update --init --recursive
+pnpm install
+pnpm dev
+```
+
 ## Credit
 
 - This theme is based off of the lovely [Bear Blog.](https://github.com/HermanMartinus/bearblog/)
