@@ -2,9 +2,6 @@
 
 My personal blog, powered by [typst](https://github.com/typst/typst) and [Astro](https://astro.build/).
 
-> [!NOTE]
-> wanna use it to write your blog posts? Please fork [blog-template](https://github.com/Myriad-Dreamin/blog-template) instead of my personal blog, which contains my personal blog posts and configurations.
-
 ## Features
 
 - **Tags**: Categorize your blog posts with tags.
@@ -90,41 +87,6 @@ There is a sample blog post in [`content/article/personal-info.typ`](https://git
 - `.env`: Configuration read by files, Please check `defineConfig/env` in [astro.config.mjs](astro.config.mjs) for schema.
 - [`src/consts.ts`](./src/consts.ts),[`src/components/BaseHead.astro`](./src/components/BaseHead.astro): global metadata, font resource declarations, and the head component.
 - [`src/styles/*`](src/styles/): CSS styles.
-
-## Todo
-
-Improve experience:
-
-- [x] More friendly submodule for forks
-- [ ] Split Backend Components to a separate repository
-
-Improve website:
-
-- [ ] Intro-site Link Hover Preview
-- [ ] [Last Modified Time](https://5-0-0-beta.docs.astro.build/en/recipes/modified-time/)
-- [ ] Styling
-  - [ ] Table
-  - [x] Inline Raw
-  - [ ] Blocky Raw
-- [ ] Index Page Design
-  - [ ] Badge
-- [ ] Comment Reply
-- [ ] Better [`theme-frame`](typ/templates/theme.typ)
-- [ ] Refactor code to publish packages
-  - [ ] `@myriad-dreamin/blog-template` for creating blogs
-  - Some components that could be removed (JS required):
-    - [ ] `@myriaddreamin/tylant-search`
-    - [x] `@myriaddreamin/tylant-theme-toggle`
-  - Typst Kit
-    - [ ] `@myriaddreamin/tylant-typst-kit`
-      - focus on concept: `post` collections
-    - [x] `@myriaddreamin/tylant-pdf-archive`
-      - focus on concept: `pdf` collections
-  - People who don't like backend could remove them:
-    - [ ] `@myriaddreamin/tylant-backend-client`
-    - [ ] `@myriaddreamin/tylant-click`
-    - [x] `@myriaddreamin/tylant-like-reaction`
-    - [x] `@myriaddreamin/tylant-comment`
 
 ## Credit
 
