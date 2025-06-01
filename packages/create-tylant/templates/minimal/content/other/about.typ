@@ -157,7 +157,7 @@
 }
 
 #en[
-  If you are in the Asia region, such as China and Japanese, you can access the regional mirror at #link("https://cn.myriad-dreamin.com")[PoeMagie.]
+  If you are in the Asia region, such as China and Japan, you can access the regional mirror at #link("https://cn.myriad-dreamin.com")[PoeMagie.]
 ]
 
 #zh[
