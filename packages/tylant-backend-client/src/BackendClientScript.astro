@@ -1,0 +1,55 @@
+---
+// Write your component code in this file!
+interface Props {
+  kServers?: string[];
+}
+const { kServers = [] } = Astro.props;
+---
+
+<script is:inline define:vars={{ kServers }}>
+  window.postServer = (url, opts) => {
+    const { headers, body, doAlert, method } = opts || {};
+    const errors = [];
+    let lastResponse = undefined;
+    return kServers
+      .reduce((promise, server) => {
+        return promise.then((resolved) => {
+          if (resolved) {
+            return Promise.resolve(true);
+          }
+
+          return fetch(server + url, {
+            method: method || "POST",
+            headers,
+            body,
+          })
+            .then((response) => {
+              lastResponse = response;
+              if (!response.ok) {
+                errors.push(
+                  `Failed to send: ${response.statusText} (${text.trim()})`
+                );
+                return false;
+              } else {
+                return true;
+              }
+            })
+            .catch((error) => {
+              errors.push(`"Exception when sending: ${error}`);
+              return false;
+            });
+        });
+      }, Promise.resolve(false))
+      .then((resolved) => {
+        if (!resolved) {
+          const msg = errors.join("\n");
+
+          if (doAlert) {
+            alert(msg);
+          }
+          throw new Error(msg);
+        }
+        return lastResponse;
+      });
+  };
+</script>
