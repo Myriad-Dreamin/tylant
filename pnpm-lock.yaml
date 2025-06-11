@@ -17,12 +17,15 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.5
         version: 5.2.5
-      '@myriaddreamin/create-tylant':
-        specifier: workspace:^
-        version: link:packages/create-tylant
       '@myriaddreamin/tylant':
         specifier: workspace:^
         version: link:packages/tylant
+      '@myriaddreamin/tylant-backend-client':
+        specifier: workspace:^
+        version: link:packages/tylant-backend-client
+      '@myriaddreamin/tylant-click':
+        specifier: workspace:^
+        version: link:packages/tylant-click
       '@myriaddreamin/tylant-comment':
         specifier: workspace:^
         version: link:packages/tylant-comment
