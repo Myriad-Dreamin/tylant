@@ -35,6 +35,8 @@ export default defineConfig({
       // `;` separated list of backend addresses
       BACKEND_ADDR: EnvStr(),
       BAIDU_VERIFICATION_CODE: EnvStr(),
+      SITE_OWNER: EnvStr(),
+      SITE_SOURCE_URL: EnvStr(),
     },
   },
 

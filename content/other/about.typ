@@ -2,7 +2,7 @@
 #import "/typ/templates/mod.typ": sys-is-html-target
 
 // If the site is not bundled my artwork, don't show it
-#let show-artwork = true
+#let show-artwork = false
 #let is-external = state("about:is-external", false)
 
 #let en = text.with(lang: "en")

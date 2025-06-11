@@ -3,11 +3,11 @@
 // all pages through the use of the <BaseHead /> component.
 import "$styles/global.css";
 import "$styles/font.css";
-import interWoff2 from '@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url';
-import interItalicWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-italic.woff2?url';
+import interWoff2 from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+import interItalicWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-italic.woff2?url";
 
-import { kUrlBase, kSiteTitle, kServers, kEnableBackend } from "$consts";
-import { ThemeInit } from "@myriaddreamin/tylant-theme-toggle";
+import { kUrlBase, kSiteTitle, kServers } from "$consts";
+import { ThemeInit, BackendClientScript } from "$components";
 
 interface Props {
   title: string;
@@ -33,7 +33,6 @@ const { title, description, image = "/blog-heading.webp" } = Astro.props;
 />
 <meta name="generator" content={Astro.generator} />
 
-
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
@@ -58,56 +57,20 @@ const { title, description, image = "/blog-heading.webp" } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 <meta property="twitter:image:alt" content="Kamiya's Character Design" />
 
-<link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href={interItalicWoff2} crossorigin="anonymous" />
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href={interWoff2}
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href={interItalicWoff2}
+  crossorigin="anonymous"
+/>
 
-<ThemeInit/>
-
-<!-- Backend Support -->
-{kEnableBackend && <script is:inline define:vars={{ kServers }}>
-  window.postServer = (url, opts) => {
-    const { headers, body, doAlert, method } = opts || {};
-    const errors = [];
-    let lastResponse = undefined;
-    return kServers
-      .reduce((promise, server) => {
-        return promise.then((resolved) => {
-          if (resolved) {
-            return Promise.resolve(true);
-          }
-
-          return fetch(server + url, {
-            method: method || "POST",
-            headers,
-            body,
-          })
-            .then((response) => {
-               lastResponse = response;
-              if (!response.ok) {
-                errors.push(
-                  `Failed to send: ${response.statusText} (${text.trim()})`
-                );
-                return false;
-              } else {
-                return true;
-              }
-            })
-            .catch((error) => {
-              errors.push(`"Exception when sending: ${error}`);
-              return false;
-            });
-        });
-      }, Promise.resolve(false))
-      .then((resolved) => {
-        if (!resolved) {
-          const msg = errors.join("\n");
-
-          if (doAlert) {
-            alert(msg);
-          }
-          throw new Error(msg);
-        }
-        return lastResponse;
-      });
-  };
-</script>}
+<ThemeInit />
+<BackendClientScript kServers={kServers} />

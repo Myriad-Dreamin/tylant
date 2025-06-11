@@ -2,23 +2,21 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-import { LikeReaction } from "@myriaddreamin/tylant-like-reaction";
-import { CommentList } from "@myriaddreamin/tylant-comment";
-import { PostClick } from "@myriaddreamin/tylant";
-import { TagList } from "@myriaddreamin/tylant";
-import { renderComment } from "@myriaddreamin/tylant";
-import { ArchiveRef } from "@myriaddreamin/tylant-pdf-archive";
-
-import BaseHead from "$components/BaseHead.astro";
-import Header from "$components/Header.astro";
-import Footer from "$components/Footer.astro";
-import FormattedDate from "$components/FormattedDate.astro";
+import { TagList, renderComment } from "@myriaddreamin/tylant";
+import {
+  ArchiveRef,
+  BaseHead,
+  CommentList,
+  Footer,
+  FormattedDate,
+  Header,
+  LikeReaction,
+  PostClick,
+} from "$components";
 import {
   kEnableClick,
   kArticleStats,
-  kEnableComment,
   kEnableReaction,
-  kEnableArchive,
   kCommentInfo,
 } from "$consts";
 
@@ -125,7 +123,7 @@ const pdfArchives = await getCollection("archive");
         margin-left: 4em;
       }
     </style>
-    {id && kEnableClick && <PostClick id={id} />}
+    {id && <PostClick articleId={id} />}
   </head>
 
   <body>
@@ -179,7 +177,7 @@ const pdfArchives = await getCollection("archive");
             </div>
             <h1>{title}</h1>
             {
-              id && kEnableArchive && pdfArchives.length > 0 && (
+              id && pdfArchives.length > 0 && (
                 <ArchiveRef
                   articleId={id || undefined}
                   pdfArchives={pdfArchives}
@@ -194,7 +192,7 @@ const pdfArchives = await getCollection("archive");
       </article>
       {tags && <TagList tags={tags} />}
       {
-        id && kEnableComment && (
+        id && (
           <CommentList
             articleId={id}
             kCommentInfo={kCommentInfo}

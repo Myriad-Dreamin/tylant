@@ -8,6 +8,10 @@ import COMMENTS from "../content/snapshot/article-comments.json";
 type Comment = (typeof COMMENTS)[number];
 
 /**
+ * Whether to enable theming (dark & light mode).
+ */
+export const kEnableTheming = true;
+/**
  * Whether to enable backend, required by click and comment feature.
  */
 export const kEnableBackend = false;
@@ -53,6 +57,16 @@ export const kSiteIndexTitle: string = config.SITE_INDEX_TITLE || kSiteTitle;
  * The description of the website.
  */
 export const kSiteDescription: string = config.SITE_DESCRIPTION || "My blog.";
+/**
+ * The name of the site owner.
+ */
+export const kSiteOwner: string = config.SITE_OWNER || "Myriad-Dreamin";
+/**
+ * The source code URL of the site.
+ *
+ * Disable this if you don't want to show the source code link.
+ */
+export const kSiteSourceUrl: string | undefined = config.SITE_SOURCE_URL;
 /**
  * The baidu verification code, used for SEO.
  */
