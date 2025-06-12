@@ -1,13 +1,18 @@
 ---
 interface Props {
+  baseUrl?: string;
   tags: string[];
 }
 
-const { tags } = Astro.props;
+const {
+  tags,
+  baseUrl = import.meta.env.BASE_URL +
+    (import.meta.env.BASE_URL.endsWith("/") ? "article" : "/article"),
+} = Astro.props;
 const postByTag = (tag: string) => {
   const params = new URLSearchParams();
   params.set("search", tag);
-  return `${Astro.url.pathname}?${params}`;
+  return `${baseUrl}?${params}`;
 };
 ---
 
