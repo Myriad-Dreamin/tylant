@@ -1,5 +1,23 @@
 ---
 import type { BlogComment, CommentHost } from "..";
+const translateEn = {
+  recentComments: "Recent Comments",
+  on: "on",
+  at: "at",
+} as const;
+
+const translates: Record<string, Record<keyof typeof translateEn, string>> = {
+  zh: {
+    recentComments: "最新评论",
+    on: "在",
+    at: "，于",
+  },
+  en: translateEn,
+};
+const locale = Astro.currentLocale || "en";
+const t = (key: keyof typeof translateEn) => {
+  return translates[locale][key] || translates.en[key];
+};
 
 interface Props extends CommentHost {
   kCommentList: BlogComment[];
@@ -13,22 +31,24 @@ const recent5Comments = comments.slice(0, 5);
 ---
 
 <section aria-label="Recent Comments">
-  <h2>Recent Comments</h2>
+  <h2>{t("recentComments")}</h2>
   <ul class="block-list comments">
     {
       recent5Comments.map(async (comment) => (
         <li class="comment-item">
           <div class="comment-head">
-            <strong class="name">{comment.email}</strong> on
-            <Fragment
-              set:html={await Astro.slots.render("articleRef", [
-                comment.articleId,
-              ])}
-            />
-            <em>
-              at
-              <time>{new Date(comment.createdAt).toLocaleString()}</time>
-            </em>
+            <strong class="name">{comment.email}</strong> {t("on")}
+            <>
+              <Fragment
+                set:html={await Astro.slots.render("articleRef", [
+                  comment.articleId,
+                ])}
+              />
+              <em>
+                {t("at")}
+                <time>{new Date(comment.createdAt).toLocaleString()}</time>
+              </em>
+            </>
           </div>
           <span class="title" set:html={renderComment(comment.content)} />
         </li>
