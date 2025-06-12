@@ -1,5 +1,44 @@
 ---
+const translateEn = {
+  searchLabel: "Search:&nbsp;",
+  search: "Search",
+  keywords: "Keywords...",
+  sortBy: "Sort by",
+  date: "Date",
+  dateAsc: "Date Asc",
+  title: "Title",
+  tags: "Tags",
 
+  searchByKeywords: "Search by keywords",
+  sortByDate: "Sort by date in descending order",
+  sortByDateAsc: "Sort by date in ascending order",
+  sortByTitle: "Sort by title",
+  sortByTags: "Sort by tags",
+} as const;
+
+const translates: Record<string, Record<keyof typeof translateEn, string>> = {
+  zh: {
+    searchLabel: "搜索：",
+    search: "搜索",
+    keywords: "关键词...",
+    sortBy: "排序方式",
+    date: "日期",
+    dateAsc: "日期升序",
+    title: "标题",
+    tags: "标签",
+
+    searchByKeywords: "按关键词搜索",
+    sortByDate: "按日期降序排序",
+    sortByDateAsc: "按日期升序排序",
+    sortByTitle: "按标题排序",
+    sortByTags: "按标签排序",
+  },
+  en: translateEn,
+};
+const locale = Astro.currentLocale || "en";
+const t = (key: keyof typeof translateEn) => {
+  return translates[locale][key] || translates.en[key];
+};
 ---
 
 <style>
@@ -24,25 +63,23 @@
   }
 </style>
 
-<div aria-label="Search" role="search">
+<div aria-label={t("search")} role="search">
   <div class="search enabled">
-    <div>Search:&nbsp;</div>
+    <div set:html={t("searchLabel")} />
     <input
       id="search-text"
       type="text"
-      placeholder="Keywords..."
+      placeholder={t("keywords")}
       class="search-box"
-      title="Search by keywords"
+      title={t("searchByKeywords")}
       role="searchbox"
     />
-    <select id="search-sort" class="search-box" title="Sort by">
-      <option value="date" title="Sort by date in descending order">Date</option
+    <select id="search-sort" class="search-box" title={t("sortBy")}>
+      <option value="date" title={t("sortByDate")}>{t("date")}</option>
+      <option value="date-asc" title={t("sortByDateAsc")}>{t("dateAsc")}</option
       >
-      <option value="date-asc" title="Sort by date in ascending order"
-        >Date Asc</option
-      >
-      <option value="title" title="Sort by title">Title</option>
-      <option value="tag" title="Sort by tags">Tags</option>
+      <option value="title" title={t("sortByTitle")}>{t("title")}</option>
+      <option value="tag" title={t("sortByTags")}>{t("tags")}</option>
     </select>
   </div>
   <script>
