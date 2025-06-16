@@ -9,6 +9,7 @@ export type BlogComment = {
   articleId: string;
   content: string;
   email: string;
+  authorized?: boolean;
   createdAt: number;
 };
 

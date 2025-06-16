@@ -7,7 +7,60 @@ interface Props extends CommentHost {
 }
 
 const { articleId, kCommentInfo, renderComment } = Astro.props;
-const comments = kCommentInfo.get(articleId) || [];
+const commentsRaw = kCommentInfo.get(articleId) || [];
+const comments = commentsRaw.map((comment) => {
+  const htmlEscape = (str: string) => {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  };
+  const firstLineOfComment = (id: string) => {
+    const comment = commentsRaw.find((c) => c.id === id);
+    if (!comment) return "";
+    const content = comment.content
+      .replace(/\[user:([^\]]+)\]/g, "")
+      .replace(/\[comment:(\d+)\]/g, "");
+
+    const firstLine = content.trim().split("\n")[0];
+    if (firstLine && firstLine.startsWith("```")) {
+      return "";
+    }
+
+    return "\n\n" + firstLine;
+  };
+
+  const makeMdQuote = (str: string) => {
+    // replace newlines with markdown blockquote
+    return str
+      .split("\n")
+      .map((line) => `> ${line}`)
+      .join("\n");
+  };
+
+  comment.content = comment.content
+    .replace(
+      /\[user:([^\]]+)\]/g,
+      (_, id) => `<userref>${htmlEscape(id)}</userref>`
+    )
+    .replace(
+      /\[comment:(\d+)\]/g,
+      (_, id) =>
+        makeMdQuote(
+          `<commentref>${htmlEscape(id)}</commentref>${htmlEscape(firstLineOfComment(id))}`
+        ) + "\n"
+    );
+
+  return comment;
+});
+const userOccurrences = new Set<string>();
+const addUserAnchor = (user: string) => {
+  if (userOccurrences.has(user)) {
+    return undefined;
+  }
+  userOccurrences.add(user);
+  return `user-${user}`;
+};
 ---
 
 <style>
@@ -115,6 +168,26 @@ const comments = kCommentInfo.get(articleId) || [];
       gap: 0.5em;
     }
   }
+
+  .comment-alt {
+    font-size: 1em;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .comment-alt:hover {
+    text-decoration: underline;
+  }
+
+  .comment-unauthorized {
+    font-size: 1em;
+    margin-left: 0.5em;
+    color: #c21f30;
+  }
+
+  .comment-head:focus,
+  .comment-alt:focus {
+    color: #f9a633;
+  }
 </style>
 <section class="comment-region" aria-label="Comments">
   <h3>Comments</h3>
@@ -194,10 +267,34 @@ const comments = kCommentInfo.get(articleId) || [];
         <li class="comment-item">
           <div class="comment-head">
             <strong>{comment.email}</strong>
+            <a
+              class="comment-alt"
+              href="#comment-form"
+              id={addUserAnchor(comment.email)}
+              onclick={`const el = document.querySelector('textarea[name=comment]'); el.value += '[user:${comment.email}] '; el.focus(); return false;`}
+            >
+              [@]
+            </a>
             <em>
               at
               <time>{new Date(comment.createdAt).toLocaleString()}</time>
             </em>
+            <a
+              class="comment-alt"
+              href="#comment-form"
+              id={`comment-${comment.id}`}
+              onclick={`const el = document.querySelector('textarea[name=comment]'); el.value += '[comment:${comment.id}]\\n[user:${comment.email}] '; el.focus(); return false;`}
+            >
+              [reply]
+            </a>
+            {!comment.authorized && (
+              <span
+                class="comment-unauthorized"
+                title="Administrator has not yet verified this comment"
+              >
+                [unauthorized]
+              </span>
+            )}
           </div>
           <div class="comment-text" set:html={renderComment(comment.content)} />
         </li>
