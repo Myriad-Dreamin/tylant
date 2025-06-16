@@ -30,6 +30,13 @@ const comments = kCommentList.sort(
 const recent5Comments = comments.slice(0, 5);
 ---
 
+<style>
+  .comment-unauthorized {
+    font-size: 1em;
+    margin-left: 0.5em;
+    color: #c21f30;
+  }
+</style>
 <section aria-label="Recent Comments">
   <h2>{t("recentComments")}</h2>
   <ul class="block-list comments">
@@ -48,6 +55,14 @@ const recent5Comments = comments.slice(0, 5);
                 {t("at")}
                 <time>{new Date(comment.createdAt).toLocaleString()}</time>
               </em>
+              {!comment.authorized && (
+                <span
+                  class="comment-unauthorized"
+                  title="Administrator has not yet verified this comment"
+                >
+                  [unauthorized]
+                </span>
+              )}
             </>
           </div>
           <span class="title" set:html={renderComment(comment.content)} />
