@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 
-import {
-  RecentComment,
-  ArchiveList,
-  TagList,
-  renderComment,
-} from "@myriaddreamin/tylant";
+import RecentComment from "virtual:tylant/components/RecentComment";
+import ArchiveList from "virtual:tylant/components/ArchiveList";
+import TagList from "virtual:tylant/components/TagList";
+import { renderComment } from "@myriaddreamin/tylant";
 
 import BaseHead from "$components/BaseHead.astro";
 import Header from "$components/Header.astro";

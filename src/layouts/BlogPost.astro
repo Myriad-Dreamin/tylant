@@ -2,17 +2,14 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-import { TagList, renderComment } from "@myriaddreamin/tylant";
-import {
-  ArchiveRef,
-  BaseHead,
-  CommentList,
-  Footer,
-  FormattedDate,
-  Header,
-  LikeReaction,
-  PostClick,
-} from "$components";
+import TagList from "virtual:tylant/components/TagList";
+import ArchiveRef from "virtual:tylant/components/ArchiveRef";
+import CommentList from "virtual:tylant/components/CommentList";
+import LikeReaction from "virtual:tylant/components/LikeReaction";
+import PostClick from "virtual:tylant/components/PostClick";
+import { renderComment } from "@myriaddreamin/tylant";
+
+import { BaseHead, Footer, FormattedDate, Header } from "$components";
 import {
   kEnableClick,
   kArticleStats,

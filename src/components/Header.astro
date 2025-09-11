@@ -2,7 +2,9 @@
 import { getCollection } from "astro:content";
 
 import { kUrlBase, kSiteLogo, kSiteSourceUrl } from "$consts";
-import { ArchiveButton, ThemeToggle } from "$components";
+import ThemeToggle from "virtual:tylant/components/ThemeToggle";
+import ArchiveButton from "virtual:tylant/components/ArchiveButton";
+
 import HeaderLink from "./HeaderLink.astro";
 
 interface Props {

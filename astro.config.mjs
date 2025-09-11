@@ -3,10 +3,11 @@ import { defineConfig, envField } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { typst } from "astro-typst";
 import { loadEnv } from "vite";
+import { tylant } from "@myriaddreamin/tylant";
 
 // Please check `defineConfig/env` in astro.config.mjs for schema
 const e = loadEnv(process.env.NODE_ENV || "", process.cwd(), "");
-const { SITE, URL_BASE } = e;
+const { SITE, SITE_TITLE, URL_BASE } = e;
 
 const EnvStr = (optional = true) =>
   envField.string({ context: "client", access: "public", optional });
@@ -48,6 +49,9 @@ export default defineConfig({
         default: "html",
         detect: () => "html",
       },
+    }),
+    tylant({
+      title: SITE_TITLE,
     }),
   ],
 
