@@ -45,6 +45,9 @@ const UserConfigSchema = z.object({
     /** The logo of the website. */
     siteLogo: z.string().optional().describe('The logo of the website.'),
 
+    click: z.boolean().optional().describe('Enable click feature.'),
+    reaction: z.boolean().optional().describe('Enable reaction feature.'),
+
     /** Description metadata for your website. Can be used in page metadata. */
     description: z
         .string()
@@ -251,6 +254,13 @@ const UserConfigSchema = z.object({
 });
 
 export const TylantConfigSchema = UserConfigSchema.strict()
+    .transform((it) => {
+        return {
+            ...it,
+            click: it.click ?? false,
+            reaction: it.reaction ?? false,
+        };
+    })
     .transform(({ title, locales, defaultLocale, ...config }, ctx) => {
         const configuredLocales = Object.keys(locales ?? {});
 

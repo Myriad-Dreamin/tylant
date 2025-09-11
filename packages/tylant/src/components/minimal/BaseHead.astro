@@ -8,13 +8,19 @@ import ThemeProvider from "virtual:tylant/components/ThemeProvider";
 interface Props {
   title: string;
   description: string;
+  canonical?: string;
   image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const locale = Astro.currentLocale || "en";
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  image = "/blog-heading.webp",
+} = Astro.props;
 
-const { title, description, image = "/blog-heading.webp" } = Astro.props;
+const canonicalURL = new URL(canonical, Astro.site);
+const locale = Astro.currentLocale || "en";
 ---
 
 <!-- Global Metadata -->

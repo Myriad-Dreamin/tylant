@@ -64,3 +64,9 @@ declare module 'virtual:tylant/components/minimal/Header' {
     const Header: typeof import('./src/components/minimal/Header.astro').default;
     export default Header;
 }
+
+declare module 'virtual:tylant/layouts/minimal/BlogPost' {
+    const BlogPost: typeof import('./src/layouts/minimal/BlogPost.astro').default;
+    export type { Props } from './src/layouts/minimal/BlogPost.astro';
+    export default BlogPost;
+}
