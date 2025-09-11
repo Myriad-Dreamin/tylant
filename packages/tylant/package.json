@@ -4,7 +4,18 @@
   "version": "0.0.5",
   "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.ts",
+    "./src/components/TagList.astro": "./src/components/TagList.astro",
+    "./src/components/PostClick.astro": "./src/components/PostClick.astro",
+    "./src/components/LikeReaction.astro": "./src/components/LikeReaction.astro",
+    "./src/components/Search.astro": "./src/components/Search.astro",
+    "./src/components/CommentList.astro": "./src/components/CommentList.astro",
+    "./src/components/RecentComment.astro": "./src/components/RecentComment.astro",
+    "./src/components/ThemeProvider.astro": "./src/components/ThemeProvider.astro",
+    "./src/components/ThemeToggle.astro": "./src/components/ThemeToggle.astro",
+    "./src/components/ArchiveList.astro": "./src/components/ArchiveList.astro",
+    "./src/components/ArchiveButton.astro": "./src/components/ArchiveButton.astro",
+    "./src/components/ArchiveRef.astro": "./src/components/ArchiveRef.astro"
   },
   "files": [
     "src",
@@ -14,6 +25,9 @@
     "astro-component"
   ],
   "scripts": {},
+  "dependencies": {
+    "bcp-47": "^2.1.0"
+  },
   "devDependencies": {
     "astro": "^5.8.0"
   },

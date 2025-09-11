@@ -7,7 +7,7 @@ import interWoff2 from '@fontsource-variable/inter/files/inter-latin-opsz-normal
 import interItalicWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-italic.woff2?url';
 
 import { kUrlBase, kSiteTitle, kServers, kEnableBackend } from "$consts";
-import { ThemeInit } from "@myriaddreamin/tylant-theme-toggle";
+import ThemeProvider from "virtual:tylant/components/ThemeProvider";
 
 interface Props {
   title: string;
@@ -61,7 +61,7 @@ const { title, description, image = "/blog-heading.webp" } = Astro.props;
 <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin="anonymous" />
 <link rel="preload" as="font" type="font/woff2" href={interItalicWoff2} crossorigin="anonymous" />
 
-<ThemeInit/>
+<ThemeProvider/>
 
 <!-- Backend Support -->
 {kEnableBackend && <script is:inline define:vars={{ kServers }}>

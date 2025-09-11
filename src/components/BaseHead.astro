@@ -7,7 +7,8 @@ import interWoff2 from "@fontsource-variable/inter/files/inter-latin-opsz-normal
 import interItalicWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-italic.woff2?url";
 
 import { kUrlBase, kSiteTitle, kServers } from "$consts";
-import { ThemeInit, BackendClientScript } from "$components";
+import { BackendClientScript } from "$components";
+import ThemeProvider from "virtual:tylant/components/ThemeProvider";
 
 interface Props {
   title: string;
@@ -72,5 +73,5 @@ const { title, description, image = "/blog-heading.webp" } = Astro.props;
   crossorigin="anonymous"
 />
 
-<ThemeInit />
+<ThemeProvider />
 <BackendClientScript kServers={kServers} />
