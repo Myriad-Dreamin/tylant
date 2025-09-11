@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import { kUrlBase, kSiteLogo, kSiteSourceUrl } from "$consts";
+import k from "virtual:tylant/user-config";
 import ThemeToggle from "virtual:tylant/components/ThemeToggle";
 import ArchiveButton from "virtual:tylant/components/ArchiveButton";
 
@@ -17,12 +17,12 @@ const pdfArchives = await getCollection("archive");
 
 <header>
   <nav>
-    <h2 class="logo"><a href={`${kUrlBase}/`}>{kSiteLogo}</a></h2>
+    <h2 class="logo"><a href={`${k.urlBase}/`}>{k.siteLogo}</a></h2>
     <div class="internal-links">
-      <HeaderLink href={`${kUrlBase}/`}>Home</HeaderLink>
-      <HeaderLink href={`${kUrlBase}/article`}>Posts</HeaderLink>
-      <HeaderLink href={`${kUrlBase}/friend`}>Friends</HeaderLink>
-      <HeaderLink href={`${kUrlBase}/about`}>About</HeaderLink>
+      <HeaderLink href={`${k.urlBase}/`}>Home</HeaderLink>
+      <HeaderLink href={`${k.urlBase}/article`}>Posts</HeaderLink>
+      <HeaderLink href={`${k.urlBase}/friend`}>Friends</HeaderLink>
+      <HeaderLink href={`${k.urlBase}/about`}>About</HeaderLink>
     </div>
     <div class="social-links">
       <span style="width: 2em;" aria-hidden="true">&nbsp;</span>
@@ -33,9 +33,9 @@ const pdfArchives = await getCollection("archive");
         )
       }
       {
-        kSiteSourceUrl && (
+        k.siteSourceUrl && (
           <a
-            href={kSiteSourceUrl}
+            href={k.siteSourceUrl}
             class="icon ls-icon"
             target="_blank"
             title="Go to repository"

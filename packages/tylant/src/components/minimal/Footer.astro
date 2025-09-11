@@ -1,18 +1,18 @@
 ---
-import { kSiteOwner, kSiteSourceUrl, kUrlBase } from "$consts";
+import k from "virtual:tylant/user-config";
 
 const today = new Date();
 ---
 
 <footer>
   &copy; 2023-{today.getFullYear()}
-  {kSiteOwner}. All rights reserved.
+  {k.siteOwner}. All rights reserved.
   <div class="social-links">
     {
-      kSiteSourceUrl && (
+      k.siteSourceUrl && (
         <a
           class="icon"
-          href={kSiteSourceUrl}
+          href={k.siteSourceUrl}
           target="_blank"
           title="Go to repository"
         >
@@ -23,7 +23,7 @@ const today = new Date();
         </a>
       )
     }
-    <a class="icon" href={`${kUrlBase}/rss.xml`} target="_blank">
+    <a class="icon" href={`${k.urlBase}/rss.xml`} target="_blank">
       <span class="sr-only">RSS/Atom feeds</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
         ><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->

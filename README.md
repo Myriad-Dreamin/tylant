@@ -99,7 +99,7 @@ There is a sample blog post in [`content/article/syntax.typ`](content/article/sy
 Improve experience:
 
 - [x] More friendly submodule for forks
-- [ ] Split Backend Components to a separate repository
+- [x] Split Backend Components to a separate repository
 
 Improve website:
 

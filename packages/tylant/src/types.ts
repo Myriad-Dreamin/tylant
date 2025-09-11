@@ -35,6 +35,15 @@ const LocaleSchema = z.object({
 const UserConfigSchema = z.object({
     /** Title for your website. Will be used in metadata and as browser tab title. */
     title: TitleConfigSchema(),
+    // todo: deprecate me
+    /** The base URL for your website. */
+    urlBase: z.string(),
+    /** The owner of the website. */
+    siteOwner: z.string().optional().describe('The owner of the website.'),
+    /** The source URL of the website. */
+    siteSourceUrl: z.string().optional().describe('The source URL of the website.'),
+    /** The logo of the website. */
+    siteLogo: z.string().optional().describe('The logo of the website.'),
 
     /** Description metadata for your website. Can be used in page metadata. */
     description: z

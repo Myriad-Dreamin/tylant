@@ -1,3 +1,8 @@
+declare module 'virtual:tylant/user-config' {
+    const userConfig: import('./src/types').TylantConfig;
+    export default userConfig;
+}
+
 declare module 'virtual:tylant/components/ThemeProvider' {
     const ThemeProvider: typeof import('./src/components/ThemeProvider.astro').default;
     export default ThemeProvider;
@@ -41,4 +46,21 @@ declare module 'virtual:tylant/components/ArchiveButton' {
 declare module 'virtual:tylant/components/ArchiveRef' {
     const ArchiveRef: typeof import('./src/components/ArchiveRef.astro').default;
     export default ArchiveRef;
+}
+
+declare module 'virtual:tylant/components/minimal/BaseHead' {
+    const BaseHead: typeof import('./src/components/minimal/BaseHead.astro').default;
+    export default BaseHead;
+}
+declare module 'virtual:tylant/components/minimal/Footer' {
+    const Footer: typeof import('./src/components/minimal/Footer.astro').default;
+    export default Footer;
+}
+declare module 'virtual:tylant/components/minimal/FormattedDate' {
+    const FormattedDate: typeof import('./src/components/minimal/FormattedDate.astro').default;
+    export default FormattedDate;
+}
+declare module 'virtual:tylant/components/minimal/Header' {
+    const Header: typeof import('./src/components/minimal/Header.astro').default;
+    export default Header;
 }

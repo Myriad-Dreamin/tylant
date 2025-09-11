@@ -58,8 +58,18 @@ export function vitePluginTylantUserConfig(
         collectionConfigImportPath = resolve(fileURLToPath(srcDir), './content/config.ts');
     }
 
+    // opts.components
+    const { minimal, ...rest } = opts.components;
+
+    const virtualMinimalComponentModules = Object.fromEntries(
+        Object.entries(minimal).map(([name, path]) => [
+            `virtual:tylant/components/minimal/${name}`,
+            `export { default } from ${resolveId(path)};`,
+        ])
+    );
+
     const virtualComponentModules = Object.fromEntries(
-        Object.entries(opts.components).map(([name, path]) => [
+        Object.entries(rest).map(([name, path]) => [
             `virtual:tylant/components/${name}`,
             `export { default } from ${resolveId(path)};`,
         ])
@@ -133,6 +143,7 @@ export function vitePluginTylantUserConfig(
                     ['', 'export const routeMiddleware = [\n'] as [string, string]
                 )
                 .join('\n') + '];',
+        ...virtualMinimalComponentModules,
         ...virtualComponentModules,
     } satisfies Record<string, string>;
 

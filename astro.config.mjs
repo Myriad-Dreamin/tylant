@@ -7,7 +7,15 @@ import { tylant } from "@myriaddreamin/tylant";
 
 // Please check `defineConfig/env` in astro.config.mjs for schema
 const e = loadEnv(process.env.NODE_ENV || "", process.cwd(), "");
-const { SITE, SITE_TITLE, URL_BASE } = e;
+const {
+  SITE,
+  SITE_TITLE,
+  URL_BASE,
+  SITE_DESCRIPTION,
+  SITE_OWNER,
+  SITE_SOURCE_URL,
+  SITE_LOGO,
+} = e;
 
 const EnvStr = (optional = true) =>
   envField.string({ context: "client", access: "public", optional });
@@ -52,6 +60,11 @@ export default defineConfig({
     }),
     tylant({
       title: SITE_TITLE,
+      urlBase: URL_BASE,
+      description: SITE_DESCRIPTION,
+      siteOwner: SITE_OWNER,
+      siteSourceUrl: SITE_SOURCE_URL,
+      siteLogo: SITE_LOGO,
     }),
   ],
 

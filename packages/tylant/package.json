@@ -15,7 +15,12 @@
     "./src/components/ThemeToggle.astro": "./src/components/ThemeToggle.astro",
     "./src/components/ArchiveList.astro": "./src/components/ArchiveList.astro",
     "./src/components/ArchiveButton.astro": "./src/components/ArchiveButton.astro",
-    "./src/components/ArchiveRef.astro": "./src/components/ArchiveRef.astro"
+    "./src/components/ArchiveRef.astro": "./src/components/ArchiveRef.astro",
+    "./src/components/minimal/BaseHead.astro": "./src/components/minimal/BaseHead.astro",
+    "./src/components/minimal/Footer.astro": "./src/components/minimal/Footer.astro",
+    "./src/components/minimal/FormattedDate.astro": "./src/components/minimal/FormattedDate.astro",
+    "./src/components/minimal/Header.astro": "./src/components/minimal/Header.astro",
+    "./src/layouts/minimal/BaseHead.astro": "./src/layouts/minimal/BaseHead.astro"
   },
   "files": [
     "src",
