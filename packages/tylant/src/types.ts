@@ -7,7 +7,7 @@ import { TableOfContentsSchema } from './schemas/tableOfContents';
 import { TitleConfigSchema, TitleTransformConfigSchema } from './schemas/title';
 // import { SidebarItemSchema } from './schemas/sidebar';
 import { HeadConfigSchema } from './schemas/head';
-import { ComponentConfigSchema } from './schemas/components';
+import { ComponentConfigSchema, LayoutConfigSchema } from './schemas/components';
 import { BuiltInDefaultLocale } from './i18n';
 
 const LocaleSchema = z.object({
@@ -192,6 +192,9 @@ const UserConfigSchema = z.object({
 
     /** Specify paths to components that should override Starlight’s default components */
     components: ComponentConfigSchema(),
+
+    /** Specify paths to components that should override Starlight’s default components */
+    layouts: LayoutConfigSchema(),
 
     /** Will be used as title delimiter in the generated `<title>` tag. */
     titleDelimiter: z

@@ -58,22 +58,29 @@ export function vitePluginTylantUserConfig(
         collectionConfigImportPath = resolve(fileURLToPath(srcDir), './content/config.ts');
     }
 
-    // opts.components
-    const { minimal, ...rest } = opts.components;
+    const bind = (it: 'components' | 'layouts') => {
+        const { minimal, ...rest } = opts[it];
 
-    const virtualMinimalComponentModules = Object.fromEntries(
-        Object.entries(minimal).map(([name, path]) => [
-            `virtual:tylant/components/minimal/${name}`,
-            `export { default } from ${resolveId(path)};`,
-        ])
-    );
+        const virtualMinimalComponentModules = Object.fromEntries(
+            Object.entries(minimal).map(([name, path]) => [
+                `virtual:tylant/${it}/minimal/${name}`,
+                `export { default } from ${resolveId(path)};`,
+            ])
+        );
 
-    const virtualComponentModules = Object.fromEntries(
-        Object.entries(rest).map(([name, path]) => [
-            `virtual:tylant/components/${name}`,
-            `export { default } from ${resolveId(path)};`,
-        ])
-    );
+        const virtualComponentModules = Object.fromEntries(
+            Object.entries(rest).map(([name, path]) => [
+                `virtual:tylant/${it}/${name}`,
+                `export { default } from ${resolveId(path)};`,
+            ])
+        );
+
+        return {
+            ...virtualMinimalComponentModules,
+            ...virtualComponentModules,
+        }
+    }
+
 
     /** Map of virtual module names to their code contents as strings. */
     const modules = {
@@ -143,8 +150,8 @@ export function vitePluginTylantUserConfig(
                     ['', 'export const routeMiddleware = [\n'] as [string, string]
                 )
                 .join('\n') + '];',
-        ...virtualMinimalComponentModules,
-        ...virtualComponentModules,
+        ...bind('components'),
+        ...bind('layouts'),
     } satisfies Record<string, string>;
 
     /** Mapping names prefixed with `\0` to their original form. */

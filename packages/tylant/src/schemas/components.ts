@@ -104,13 +104,6 @@ export function ComponentConfigSchema() {
                  * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/components/minimal/FormattedDate.astro `FormattedDate` default implementation}
                  */
                 FormattedDate: z.string().default('@myriaddreamin/tylant/src/components/minimal/FormattedDate.astro'),
-
-                /**
-                 * Component that sets up the blog post of a minimal theme.
-                 *
-                 * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/layouts/minimal/BlogPost.astro `BlogPost` default implementation}
-                 */
-                BlogPost: z.string().default('@myriaddreamin/tylant/src/layouts/minimal/BlogPost.astro'),
             })
                 .default({}),
 
@@ -328,6 +321,23 @@ export function ComponentConfigSchema() {
              * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/components/EditLink.astro `EditLink` default implementation}
              */
             EditLink: z.string().default('@myriaddreamin/tylant/src/components/EditLink.astro'),
+        })
+        .default({});
+}
+
+export function LayoutConfigSchema() {
+    return z
+        .object({
+            minimal: z.object({
+
+                /**
+                 * Component that sets up the blog post of a minimal theme.
+                 *
+                 * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/layouts/minimal/BlogPost.astro `BlogPost` default implementation}
+                 */
+                BlogPost: z.string().default('@myriaddreamin/tylant/src/layouts/minimal/BlogPost.astro'),
+            })
+                .default({}),
         })
         .default({});
 }
