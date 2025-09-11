@@ -2,8 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-import { PostClick } from "@myriaddreamin/tylant";
-import { TagList } from "@myriaddreamin/tylant";
+import { PostClick, TagList } from "@myriaddreamin/tylant";
 
 import BaseHead from "$components/BaseHead.astro";
 import Header from "$components/Header.astro";
@@ -114,7 +113,7 @@ const pdfArchives = await getCollection("archive");
         margin-left: 4em;
       }
     </style>
-    {id && kEnableClick && <PostClick id={id} />}
+    {id && kEnableClick && <PostClick articleId={id} />}
   </head>
 
   <body>

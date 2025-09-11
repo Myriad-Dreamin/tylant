@@ -10,50 +10,50 @@ import Stub from "./Stub.astro";
 
 export const ThemeInit = kEnableTheming
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-theme-toggle")).ThemeInit
+  (await import("@myriaddreamin/tylant")).ThemeInit
   : Stub;
 
 export const ThemeToggle = kEnableTheming
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-theme-toggle")).ThemeToggle
+  (await import("@myriaddreamin/tylant")).ThemeToggle
   : Stub;
 
 export const BackendClientScript = kEnableBackend
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-backend-client")).default
+  (await import("@myriaddreamin/tylant-backend-client")).default
   : Stub;
 
 export const PostClick = kEnableClick
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-click")).PostClick
+  (await import("@myriaddreamin/tylant")).PostClick
   : Stub;
 
 export const LikeReaction = kEnableReaction
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-like-reaction")).LikeReaction
+  (await import("@myriaddreamin/tylant")).LikeReaction
   : Stub;
 
 export const CommentList = kEnableComment
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-comment")).CommentList
+  (await import("@myriaddreamin/tylant")).CommentList
   : Stub;
 
 export const RecentComment = kEnableComment
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-comment")).RecentComment
+  (await import("@myriaddreamin/tylant")).RecentComment
   : Stub;
 
 export const ArchiveButton = kEnableArchive
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-pdf-archive")).ArchiveButton
+  (await import("@myriaddreamin/tylant")).ArchiveButton
   : Stub;
 
 export const ArchiveRef = kEnableArchive
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-pdf-archive")).ArchiveRef
+  (await import("@myriaddreamin/tylant")).ArchiveRef
   : Stub;
 
 export const ArchiveList = kEnableArchive
   ? // @ts-ignore
-    (await import("@myriaddreamin/tylant-pdf-archive")).ArchiveList
+  (await import("@myriaddreamin/tylant")).ArchiveList
   : Stub;

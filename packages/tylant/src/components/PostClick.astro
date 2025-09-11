@@ -1,8 +1,12 @@
 ---
-const { id } = Astro.props;
+interface Props {
+  articleId: string;
+}
+
+const { articleId } = Astro.props;
 ---
 
-<script data-id={id} is:inline>
+<script data-id={articleId} is:inline>
   const postId = document.currentScript.getAttribute("data-id");
   console.log("Post ID:", postId);
 
@@ -15,3 +19,5 @@ const { id } = Astro.props;
     }),
   });
 </script>
+---
+

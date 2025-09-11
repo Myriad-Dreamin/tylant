@@ -1,4 +1,4 @@
-import type { PdfArchive } from "..";
+import type { PdfArchive } from "../..";
 
 export const archiveUrl = (id: string, base: string) => {
   const baseUrl = base + (base.endsWith("/") ? "" : "/");
@@ -18,8 +18,8 @@ export const articleArchives = async (
         return normArchive(a) && normArchive(b)
           ? a.id.localeCompare(b.id)
           : normArchive(a)
-          ? 1
-          : -1;
+            ? 1
+            : -1;
       }
 
       return a.id.localeCompare(b.id);
