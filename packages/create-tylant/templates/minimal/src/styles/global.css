@@ -209,6 +209,14 @@ nav a:hover,
 .social-links a:hover {
   color: var(--main-hover-color);
 }
+.social-links a {
+  padding: 0 0.5em;
+}
+.social-links a {
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
 .icon svg {
   width: 1em;
   height: 1em;
