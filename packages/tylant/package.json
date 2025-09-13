@@ -20,7 +20,7 @@
     "./src/components/minimal/Footer.astro": "./src/components/minimal/Footer.astro",
     "./src/components/minimal/FormattedDate.astro": "./src/components/minimal/FormattedDate.astro",
     "./src/components/minimal/Header.astro": "./src/components/minimal/Header.astro",
-    "./src/layouts/minimal/BaseHead.astro": "./src/layouts/minimal/BaseHead.astro"
+    "./src/layouts/minimal/BlogPost.astro": "./src/layouts/minimal/BlogPost.astro"
   },
   "files": [
     "src",
