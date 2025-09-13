@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import { typst } from "astro-typst";
 import { loadEnv } from "vite";
 import { tylant } from "@myriaddreamin/tylant";
+import { resolve } from "node:path";
 
 // Please check `defineConfig/env` in astro.config.mjs for schema
 const e = loadEnv(process.env.NODE_ENV || "", process.cwd(), "");
@@ -65,6 +66,12 @@ export default defineConfig({
       siteOwner: SITE_OWNER,
       siteSourceUrl: SITE_SOURCE_URL,
       siteLogo: SITE_LOGO,
+
+      components: {
+        minimal: {
+          BaseHead: resolve("./src/components/BaseHead.astro"),
+        },
+      },
     }),
   ],
 
