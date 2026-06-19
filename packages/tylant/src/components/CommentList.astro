@@ -223,18 +223,45 @@ const addUserAnchor = (user: string) => {
       const email = form.querySelector<HTMLInputElement>(
         "input[name='email']"
       )!;
+      const commentRegion = form.closest<HTMLElement>(".comment-region")!;
+      const textarea = form.querySelector<HTMLTextAreaElement>(
+        "textarea[name='comment']"
+      )!;
 
       email.value = localStorage.getItem("commentMailFrom") || "";
+
+      const appendToComment = (value: string) => {
+        textarea.value += value;
+        textarea.dispatchEvent(new Event("input", { bubbles: true }));
+        textarea.focus();
+      };
+
+      commentRegion
+        .querySelectorAll<HTMLAnchorElement>(".comment-alt[data-user]")
+        .forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const user = link.dataset.user || "";
+            const commentId = link.dataset.commentId;
+            if (!user && !commentId) {
+              return;
+            }
+
+            const userText = user ? "[user:" + user + "] " : "";
+            const value = commentId
+              ? "[comment:" + commentId + "]\n" + userText
+              : userText;
+
+            appendToComment(value);
+          });
+        });
 
       form.addEventListener("submit", (event) => {
         event.preventDefault();
       });
       submitButton?.addEventListener("click", async () => {
-        const textarea = form.querySelector<HTMLTextAreaElement>(
-          "textarea[name='comment']"
-        );
-
-        const content = textarea!.value;
+        const content = textarea.value;
         if (!content) {
           alert("Please enter a comment");
           return;
@@ -255,7 +282,8 @@ const addUserAnchor = (user: string) => {
               alert(
                 "Comment sent successfully. It will be visible after review."
               );
-              textarea!.value = "";
+              textarea.value = "";
+              textarea.dispatchEvent(new Event("input", { bubbles: true }));
             }
           });
       });
@@ -271,7 +299,7 @@ const addUserAnchor = (user: string) => {
               class="comment-alt"
               href="#comment-form"
               id={addUserAnchor(comment.email)}
-              onclick={`const el = document.querySelector('textarea[name=comment]'); el.value += '[user:${comment.email}] '; el.focus(); return false;`}
+              data-user={comment.email}
             >
               [@]
             </a>
@@ -283,7 +311,8 @@ const addUserAnchor = (user: string) => {
               class="comment-alt"
               href="#comment-form"
               id={`comment-${comment.id}`}
-              onclick={`const el = document.querySelector('textarea[name=comment]'); el.value += '[comment:${comment.id}]\\n[user:${comment.email}] '; el.focus(); return false;`}
+              data-user={comment.email}
+              data-comment-id={comment.id}
             >
               [reply]
             </a>
