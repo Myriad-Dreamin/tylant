@@ -42,10 +42,8 @@ export default defineConfig({
     sitemap(),
     typst({
       // Always builds HTML files
-      mode: {
-        default: "html",
-        detect: () => "html",
-      },
+      target: () => "html",
+      htmlMode: "text",
     }),
   ],
 
