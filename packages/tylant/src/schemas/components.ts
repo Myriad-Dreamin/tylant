@@ -1,8 +1,15 @@
 import { z } from 'astro/zod';
 
+function defaultEmptyObject<Schema extends z.ZodTypeAny>(schema: Schema): Schema {
+    const schemaWithPrefault = schema as unknown as { prefault?: (value: unknown) => Schema };
+    return typeof schemaWithPrefault.prefault === 'function'
+        ? schemaWithPrefault.prefault({})
+        : (schema as unknown as { default: (value: unknown) => Schema }).default({});
+}
+
 export function ComponentConfigSchema() {
-    return z
-        .object({
+    return defaultEmptyObject(
+        z.object({
             /**
              * Component rendered inside `<head>` that sets up dark/light theme support.
              * The default implementation includes an inline script and a `<template>` used by the
@@ -76,7 +83,7 @@ export function ComponentConfigSchema() {
             BODY ----------------------------------------------------------------------------------------
             */
 
-            minimal: z.object({
+            minimal: defaultEmptyObject(z.object({
                 /**
                  * Component that sets up the `<head>` of a minimal theme.
                  *
@@ -104,8 +111,7 @@ export function ComponentConfigSchema() {
                  * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/components/minimal/FormattedDate.astro `FormattedDate` default implementation}
                  */
                 FormattedDate: z.string().default('@myriaddreamin/tylant/src/components/minimal/FormattedDate.astro'),
-            })
-                .prefault({}),
+            })),
 
             /*
             LAYOUT --------------------------------------------------------------------------------------
@@ -322,13 +328,13 @@ export function ComponentConfigSchema() {
              */
             EditLink: z.string().default('@myriaddreamin/tylant/src/components/EditLink.astro'),
         })
-        .prefault({});
+    );
 }
 
 export function LayoutConfigSchema() {
-    return z
-        .object({
-            minimal: z.object({
+    return defaultEmptyObject(
+        z.object({
+            minimal: defaultEmptyObject(z.object({
 
                 /**
                  * Component that sets up the blog post of a minimal theme.
@@ -336,8 +342,7 @@ export function LayoutConfigSchema() {
                  * @see {@link https://github.com/Myriad-Dreamin/tylant/blob/main/packages/tylant/src/layouts/minimal/BlogPost.astro `BlogPost` default implementation}
                  */
                 BlogPost: z.string().default('@myriaddreamin/tylant/src/layouts/minimal/BlogPost.astro'),
-            })
-                .prefault({}),
+            })),
         })
-        .prefault({});
+    );
 }
