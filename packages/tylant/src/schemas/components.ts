@@ -105,7 +105,7 @@ export function ComponentConfigSchema() {
                  */
                 FormattedDate: z.string().default('@myriaddreamin/tylant/src/components/minimal/FormattedDate.astro'),
             })
-                .default({}),
+                .prefault({}),
 
             /*
             LAYOUT --------------------------------------------------------------------------------------
@@ -322,7 +322,7 @@ export function ComponentConfigSchema() {
              */
             EditLink: z.string().default('@myriaddreamin/tylant/src/components/EditLink.astro'),
         })
-        .default({});
+        .prefault({});
 }
 
 export function LayoutConfigSchema() {
@@ -337,7 +337,7 @@ export function LayoutConfigSchema() {
                  */
                 BlogPost: z.string().default('@myriaddreamin/tylant/src/layouts/minimal/BlogPost.astro'),
             })
-                .default({}),
+                .prefault({}),
         })
-        .default({});
+        .prefault({});
 }
