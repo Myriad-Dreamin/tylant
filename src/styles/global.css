@@ -261,6 +261,17 @@ figcaption {
   max-width: 100%;
   height: fit-content;
 }
+math {
+  color: var(--main-color);
+}
+
+math[display="block"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+}
 .inline-equation {
   display: inline-block;
   width: fit-content;
