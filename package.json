@@ -16,16 +16,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.4.0",
-    "@fontsource-variable/inter": "^5.2.5",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/inter": "^5.2.8",
     "@myriaddreamin/tylant": "workspace:^",
     "@myriaddreamin/tylant-backend-client": "workspace:^",
-    "@myriaddreamin/typst-ts-node-compiler": "^0.6.0-rc1",
-    "astro": "^5.8.0",
-    "astro-typst": "0.9.0-rc1"
+    "@myriaddreamin/typst-ts-node-compiler": "^0.7.0",
+    "@myriaddreamin/typst-ts-renderer": "^0.7.0",
+    "@myriaddreamin/typst.ts": "^0.7.0",
+    "astro": "^6.4.8",
+    "astro-typst": "0.12.3"
   },
   "devDependencies": {
-    "vite": "^6.3.5"
+    "vite": "^8.0.16"
   }
 }
