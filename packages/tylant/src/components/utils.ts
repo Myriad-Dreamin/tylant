@@ -1,5 +1,24 @@
 import type { PdfArchive } from "../..";
 
+const unsafeCommentUserNamePattern = /[\p{C}<>\[\]]/u;
+
+export const kAnonymousCommentUser = "Anonymous";
+
+export const normalizeCommentUserName = (name: string | null | undefined) => {
+  return (name || "").trim().replace(/[ \t]+/g, " ");
+};
+
+export const isSafeCommentUserName = (name: string) => {
+  return name.length > 0 && !unsafeCommentUserNamePattern.test(name);
+};
+
+export const publicCommentUserName = (name: string | null | undefined) => {
+  const normalized = normalizeCommentUserName(name);
+  return isSafeCommentUserName(normalized)
+    ? normalized
+    : kAnonymousCommentUser;
+};
+
 export const archiveUrl = (id: string, base: string) => {
   const baseUrl = base + (base.endsWith("/") ? "" : "/");
   return `${baseUrl}archive/${id}.pdf`;

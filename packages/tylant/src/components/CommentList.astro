@@ -1,5 +1,6 @@
 ---
 import type { BlogComment, CommentHost } from "../..";
+import { publicCommentUserName } from "./utils";
 
 interface Props extends CommentHost {
   articleId: string;
@@ -19,7 +20,7 @@ const comments = commentsRaw.map((comment) => {
     const comment = commentsRaw.find((c) => c.id === id);
     if (!comment) return "";
     const content = comment.content
-      .replace(/\[user:([^\]]+)\]/g, "")
+      .replace(/\[user:([^\]]*)\]/g, "")
       .replace(/\[comment:(\d+)\]/g, "");
 
     const firstLine = content.trim().split("\n")[0];
@@ -38,10 +39,10 @@ const comments = commentsRaw.map((comment) => {
       .join("\n");
   };
 
-  comment.content = comment.content
+  const content = comment.content
     .replace(
-      /\[user:([^\]]+)\]/g,
-      (_, id) => `<userref>${htmlEscape(id)}</userref>`
+      /\[user:([^\]]*)\]/g,
+      (_, id) => `<userref>${htmlEscape(publicCommentUserName(id))}</userref>`
     )
     .replace(
       /\[comment:(\d+)\]/g,
@@ -51,7 +52,11 @@ const comments = commentsRaw.map((comment) => {
         ) + "\n"
     );
 
-  return comment;
+  return {
+    ...comment,
+    content,
+    displayName: publicCommentUserName(comment.email),
+  };
 });
 const userOccurrences = new Set<string>();
 const addUserAnchor = (user: string) => {
@@ -59,7 +64,7 @@ const addUserAnchor = (user: string) => {
     return undefined;
   }
   userOccurrences.add(user);
-  return `user-${user}`;
+  return `user-${encodeURIComponent(user)}`;
 };
 ---
 
@@ -140,6 +145,7 @@ const addUserAnchor = (user: string) => {
     text-decoration: none;
     font-size: 0.8rem;
     display: inline-block;
+    min-width: 0;
   }
 
   .comment-list {
@@ -158,14 +164,14 @@ const addUserAnchor = (user: string) => {
   }
 
   .comment-fields {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(12rem, 1.5fr) auto;
+    gap: 0.5em;
+    align-items: center;
   }
   @media (max-width: 550px) {
     .comment-fields {
-      flex-direction: column;
-      gap: 0.5em;
+      grid-template-columns: 1fr;
     }
   }
 
@@ -195,6 +201,7 @@ const addUserAnchor = (user: string) => {
     id="comment-form"
     data-article-id={articleId}
     aria-label="Submit a Comment"
+    novalidate
   >
     <div class="grow-wrap">
       <textarea
@@ -208,10 +215,22 @@ const addUserAnchor = (user: string) => {
       <input
         class="comment-input"
         type="text"
-        name="email"
-        placeholder="Name <mail@x.com>"
+        name="user"
+        placeholder="Name"
+        autocomplete="nickname"
+        maxlength="64"
+        required
       />
-      <button type="button" class="submit-button" style="flex: 0 0 auto;"
+      <input
+        class="comment-input"
+        type="email"
+        name="email"
+        placeholder="mail@example.com"
+        autocomplete="email"
+        maxlength="254"
+        required
+      />
+      <button type="submit" class="submit-button" style="flex: 0 0 auto;"
         >Submit</button
       >
     </div>
@@ -219,7 +238,7 @@ const addUserAnchor = (user: string) => {
     <script>
       const form = document.getElementById("comment-form")!;
       const articleId = form.dataset.articleId!;
-      const submitButton = form.querySelector(".submit-button");
+      const user = form.querySelector<HTMLInputElement>("input[name='user']")!;
       const email = form.querySelector<HTMLInputElement>(
         "input[name='email']"
       )!;
@@ -228,7 +247,58 @@ const addUserAnchor = (user: string) => {
         "textarea[name='comment']"
       )!;
 
-      email.value = localStorage.getItem("commentMailFrom") || "";
+      const normalizeUserName = (name: string) =>
+        name.trim().replace(/[ \t]+/g, " ");
+      const unsafeUserNamePattern = /[\p{C}<>\[\]]/u;
+      const validateUserName = (name: string) => {
+        if (!name) {
+          return "Please enter a display name";
+        }
+        if (name.length > 64) {
+          return "Display name is too long";
+        }
+        if (unsafeUserNamePattern.test(name)) {
+          return "Display name cannot contain control characters, angle brackets, or square brackets";
+        }
+        return "";
+      };
+      const validateEmail = (address: string) => {
+        if (!address) {
+          return "Please enter an email address";
+        }
+        if (address.length > 254 || !email.validity.valid) {
+          return "Please enter a valid email address";
+        }
+        return "";
+      };
+      const quoteDisplayName = (name: string) => {
+        return `"${name.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+      };
+      const parseStoredMailFrom = (value: string) => {
+        const match = value.match(
+          /^\s*(?:"((?:\\.|[^"])*)"|([^<"]*?))\s*<([^<>\s]+@[^<>\s]+)>\s*$/u
+        );
+        if (!match) {
+          return { user: "", email: value.trim() };
+        }
+        return {
+          user: (match[1] || match[2] || "")
+            .replace(/\\(["\\])/g, "$1")
+            .trim(),
+          email: match[3].trim(),
+        };
+      };
+
+      const storedMailFrom = parseStoredMailFrom(
+        localStorage.getItem("commentMailFrom") || ""
+      );
+      user.value =
+        localStorage.getItem("commentUserName") || storedMailFrom.user;
+      email.value = storedMailFrom.email;
+
+      user.addEventListener("input", () => user.setCustomValidity(""));
+      email.addEventListener("input", () => email.setCustomValidity(""));
+      textarea.addEventListener("input", () => textarea.setCustomValidity(""));
 
       const appendToComment = (value: string) => {
         textarea.value += value;
@@ -257,22 +327,36 @@ const addUserAnchor = (user: string) => {
           });
         });
 
-      form.addEventListener("submit", (event) => {
+      form.addEventListener("submit", async (event) => {
         event.preventDefault();
-      });
-      submitButton?.addEventListener("click", async () => {
-        const content = textarea.value;
-        if (!content) {
-          alert("Please enter a comment");
+
+        const content = textarea.value.trim();
+        const displayName = normalizeUserName(user.value);
+        const mailAddress = email.value.trim();
+
+        user.value = displayName;
+        email.value = mailAddress;
+
+        textarea.setCustomValidity("");
+        user.setCustomValidity("");
+        email.setCustomValidity("");
+        textarea.setCustomValidity(content ? "" : "Please enter a comment");
+        user.setCustomValidity(validateUserName(displayName));
+        email.setCustomValidity(validateEmail(mailAddress));
+        if (!form.reportValidity()) {
           return;
         }
 
         const formData = new FormData();
         formData.append("articleId", articleId);
         formData.append("content", content);
-        formData.append("email", email.value || "");
+        formData.append(
+          "email",
+          `${quoteDisplayName(displayName)} <${mailAddress}>`
+        );
 
-        localStorage.setItem("commentMailFrom", email.value || "");
+        localStorage.setItem("commentUserName", displayName);
+        localStorage.setItem("commentMailFrom", mailAddress);
 
         // todo: use fetch instead of postServer
         (window as any)
@@ -294,12 +378,12 @@ const addUserAnchor = (user: string) => {
       comments.map((comment) => (
         <li class="comment-item">
           <div class="comment-head">
-            <strong>{comment.email}</strong>
+            <strong>{comment.displayName}</strong>
             <a
               class="comment-alt"
               href="#comment-form"
-              id={addUserAnchor(comment.email)}
-              data-user={comment.email}
+              id={addUserAnchor(comment.displayName)}
+              data-user={comment.displayName}
             >
               [@]
             </a>
@@ -311,7 +395,7 @@ const addUserAnchor = (user: string) => {
               class="comment-alt"
               href="#comment-form"
               id={`comment-${comment.id}`}
-              data-user={comment.email}
+              data-user={comment.displayName}
               data-comment-id={comment.id}
             >
               [reply]
