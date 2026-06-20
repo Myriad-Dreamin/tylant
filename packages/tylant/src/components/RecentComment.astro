@@ -1,5 +1,6 @@
 ---
 import type { BlogComment, CommentHost } from "../..";
+import { publicCommentUserName } from "./utils";
 const translateEn = {
   recentComments: "Recent Comments",
   on: "on",
@@ -44,7 +45,8 @@ const recent5Comments = comments.slice(0, 5);
       recent5Comments.map(async (comment) => (
         <li class="comment-item">
           <div class="comment-head">
-            <strong class="name">{comment.email}</strong> {t("on")}
+            <strong class="name">{publicCommentUserName(comment.email)}</strong>{" "}
+            {t("on")}
             <>
               <Fragment
                 set:html={await Astro.slots.render("articleRef", [
