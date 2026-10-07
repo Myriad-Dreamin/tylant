@@ -1,0 +1,30 @@
+name: ci
+
+# Runs build checks on pull requests and pushes to non-main branches.
+# Deployments stay on pushes to main (see gh-pages.yml); this workflow
+# only checks, it never deploys.
+on:
+  pull_request:
+  push:
+    branches-ignore: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm build
